@@ -9,7 +9,7 @@ V8_SNs = ((2000000, 2300000))
 V9_SNs = ((3000000, 3300000))
 
 
-## Functions
+## Conditions
 
 
 def V6_SN_check(__sn: int) -> bool:
@@ -22,3 +22,7 @@ def V8_SN_check(__sn: int) -> bool:
 
 def V9_SN_check(__sn: int) -> bool:
     return any(lb <= __sn <= ub for lb, ub in V9_SNs)
+
+
+def global_constraint(__sn: int) -> bool:
+    return V6_SN_check(__sn) or V8_SN_check(__sn) or V9_SN_check(__sn)

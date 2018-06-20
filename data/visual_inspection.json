@@ -69,5 +69,6 @@
             "" : ""
         }
     },
-    "opening" : "On {0}, Evaluation performed a visual inspection of SN {1} per ITP 35022-SVC rev. {2} and determined that the following parts require replacement."
+    "opening" : "On {0}, Evaluation performed a visual inspection of SN {1} per ITP 35022-SVC rev. {2} and determined that the following parts require replacement.",
+    "default" : "On {0}, Evaluation performed a visual inspection of SN {1} per ITP 35022-SVC rev. {2} and found no discrepancies."
 }

@@ -6,7 +6,7 @@ Walk an Evaluation Technician through a visual inspection of a Spectrum V6, V8, 
 infusion device.
 """
 
-from .serial_numbers import V6_SN_check, V8_SN_check, V9_SN_check
+from .serial_numbers import V6_SN_check, V8_SN_check, V9_SN_check, global_constraint
 from .exceptions import InvalidSerialNumberException, SerialNumberMismatchException
 from ..rev import REVISION_INF_01143_SVC, REVISION_ITP_35022_SVC
 
@@ -33,7 +33,7 @@ def getINF01143_SVC_data(fname: str ='data/visual_inspection.json') -> str:
 
     # update opening statement to a lambda function pending the device's SN.
     decoded['opening'] = lambda sn: decoded['opening'].format(
-        datetime.date.today().strftime('%B %d, %Y,'),
+        datetime.date.today().strftime(r'%B %d, %Y,'),
         sn,
         REVISION_ITP_35022_SVC
     )
@@ -66,6 +66,13 @@ class InfusionDevice(metaclass=ABCMeta):
         """
         prompt = 'SN: '
         inputSNs = []
+
+        def emptyline(self) -> None:
+            """
+            Override default, i.e. re-running the last command.
+
+            Do nothing.
+            """
 
         def cmdloop(self, intro: Optional[str] =None) -> int:
             """
@@ -105,7 +112,7 @@ class InfusionDevice(metaclass=ABCMeta):
                             else:
                                 line = line.rstrip('\r\n')
                     line = self.precmd(line)
-                self.postloop()
+                    self.postloop()
                 return self.inputSNs[0]
             finally:
                 if self.use_rawinput and self.completekey:
@@ -120,7 +127,10 @@ class InfusionDevice(metaclass=ABCMeta):
         """
         Check each condition on an input device SN.
         """
-        SN = self.SNInput().cmdloop(intro='Enter the device serial number')
+        while True:
+            SN = self.SNInput().cmdloop(intro='Enter the device serial number')
+            if all(condition(SN) for condition in conditions):
+                break
         return SN
 
 
