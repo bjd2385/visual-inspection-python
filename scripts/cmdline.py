@@ -8,6 +8,7 @@ infusion device.
 
 from .serial_numbers import V6_SN_check, V8_SN_check, V9_SN_check
 from .exceptions import InvalidSerialNumberException, SerialNumberMismatchException
+from ..rev import REVISION_INF_01143_SVC, REVISION_ITP_35022_SVC
 
 from typing import Optional, Callable as Function, List
 from abc import ABCMeta, abstractmethod
@@ -16,6 +17,27 @@ from argparse import ArgumentParser
 from logging import Logger
 
 import cmd
+import json
+import datetime
+
+
+def getINF01143_SVC_data(fname: str ='data/visual_inspection.json') -> str:
+    """
+    Parse JSON data about parts and processes on the INF 01143-SVC and INF 01143-CFG2-SVC.
+    """
+    with open(fname, 'r') as data:
+        lines = data.read()
+
+    decoder = json.JSONDecoder()
+    decoded = decoder.decode(lines)
+
+    opening = lambda sn: decoded['opening'].format(
+        datetime.date.today().strftime('%B %d, %Y,'),
+        sn,
+        REVISION_ITP_35022_SVC
+    )
+
+    return decoded
 
 
 class Version(Enum):
@@ -37,6 +59,12 @@ class InfusionDevice(metaclass=ABCMeta):
     SerialNumber: Optional[int] = None
     DeviceType: Optional[Category] = None
 
+    class SNInput(cmd.Cmd):
+        """
+        Get proper SN input.
+        """
+        prompt = 'SN: '
+
     @abstractmethod
     def checkSN(self, SN: int) -> bool:
         raise NotImplementedError()
@@ -44,17 +72,8 @@ class InfusionDevice(metaclass=ABCMeta):
     def getSN(self, conditions: List[Function[[int], bool]]) -> int:
         """
         Check each condition on an input device SN.
-        :param conditions:
-        :return:
         """
-
-        class SNInput(cmd.Cmd):
-            """
-            Get proper SN input.
-            """
-            prompt = 'SN: '
-
-
+        
 
 
 class V6(InfusionDevice, cmd.Cmd):
@@ -104,7 +123,7 @@ class Visual(cmd.Cmd):
         raise EOFError
 
     def help_exit(self) -> None:
-        
+
 
     def quit(self, line: str) -> None:
         raise EOFError
@@ -124,17 +143,23 @@ class Visual(cmd.Cmd):
         """
         Start visual inspection in V8.
         """
-        print('*** Starting V8 visual inspection')
-        cmd = V8()
-        cmd.cmdloop()
+        try:
+            print('*** Starting V8 visual inspection')
+            cmd = V8()
+            cmd.cmdloop()
+        except NotImplementedError:
+            self.default('')
 
     def do_V9(self, line: str) -> None:
         """
         Start visual inspection in V9.
         """
-        print('*** Starting V9 visual inspection')
-        cmd = V9()
-        cmd.cmdloop()
+        try:
+            print('*** Starting V9 visual inspection')
+            cmd = V9()
+            cmd.cmdloop()
+        except NotImplementedError:
+            self.default('')
 
 
 def main() -> None:

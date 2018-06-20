@@ -1,12 +1,72 @@
 {
-  "parts" : {
-    "55391" : "Keypad",
-    "35708-1" : "Front Case Assembly",
-    "35701" : "Rear Case Assembly",
-    "41350-A" : "ETL/UL Certification Label",
-    ""
-  }
-  "rev_D" : {
-
-  }
+    "parts" : {
+        "95514"  : [ "M2 spring", "1", { "includedParts" : [], "collateralParts" : [ "95515" ] } ],
+        "95515"  : [ "M3 spring", "1", { "includedParts" : [], "collateralParts" : [ "95514" ] } ],
+        "55391"  : [ "keypad", "custom", { "includedParts" : [], "collateralParts" : [] } ],
+        "55139"  : [ "bearings", "3", { "includedParts" : [], "collateralParts" : [ "550772" ] } ],
+        "550772" : [ "gears", "3", { "includedParts" : [], "collateralParts" : [ "55139" ] } ],
+        "550743" : [ "LCD display", "1", { "includedParts" : [], "collateralParts" : [ "41010A" ] } ],
+        "50819"  : [ "outer holders", "1", { "includedParts" : [], "collateralParts" : [ "95514", "95515" ] } ],
+        "50818"  : [ "middle holders", "1", { "includedParts" : [], "collateralParts" : [ "95514", "95515" ] } ],
+        "50816"  : [ "hooks", "1", { "includedParts" : [], "collateralParts" : [ "95514", "95515" ] } ],
+        "508151" : [ "door plate", "1", { "includedParts" : [], "collateralParts" : [ "50816", "95514", "95515" ] } ],
+        "508132" : [ "lower bearing mount", "3", { "includedParts" : [], "collateralParts" : [] } ],
+        "50812"  : [ "link", "1", { "includedParts" : [], "collateralParts" : [] } ],
+        "50707"  : [ "top latch pin", "1", { "includedParts" : [], "collateralParts" : [ "50816" ] } ],
+        "50702"  : [ "pivot pin", "3", { "includedParts" : [], "collateralParts" : [ "55139", "550772" ] } ],
+        "50700"  : [ "bottom latch pin", "1", { "includedParts" : [], "collateralParts" : [ "55139", "550772" ] } ],
+        "45719"  : [ "valve (pressure plate)", "1", { "includedParts" : [], "collateralParts" : [ "95514", "95515" ] } ],
+        "45718"  : [ "finger (pressure plate)", "1", { "includedParts" : [], "collateralParts" : [ "95514", "95515" ] } ],
+        "457143" : [ "finger (molded)", "3", { "includedParts" : [], "collateralParts" : [ "55139", "550772" ] } ],
+        "45713"  : [ "door cover", "custom", { "includedParts" : [], "collateralParts" : [] } ],
+        "457121" : [ "tubing guide", "2", { "includedParts" : [], "collateralParts" : [] } ],
+        "45705"  : [ "scanner bracket", "custom", { "includedParts" : [], "collateralParts" : [ "41002" ] } ],
+        "45704"  : [ "sealing wall", "1", { "includedParts" : [], "collateralParts" : [] } ],
+        "41350A" : [ "UL (ETL) label", "custom", { "includedParts" : [], "collateralParts" : [] } ],
+        "41085"  : [ "processor shielding", "custom", { "includedParts" : [], "collateralParts" : [] } ],
+        "41084"  : [ "IO shielding", "custom", { "includedParts" : [], "collateralParts" : [] } ],
+        "41041"  : [ "battery gasket", "custom", { "includedParts" : [], "collateralParts" : [] } ],
+        "410152" : [ "tubing ID label", "custom", { "includedParts" : [], "collateralParts" : [] } ],
+        "41010A" : [ "foam strip spacers", "1", { "includedParts" : [], "collateralParts" : [] } ],
+        "41007"  : [ "company ID label", "custom", { "includedParts" : [], "collateralParts" : [] } ],
+        "41002A" : [ "display gasket", "1", { "includedParts" : [], "collateralParts" : [] } ],
+        "41002"  : [ "" ],
+        "35753"  : [ "display backing", "1", { "includedParts" : [ "41010A" ], "collateralParts" : [] } ],
+        "35745"  : [ "pump side adapter", "custom", { "includedParts" : [], "collateralParts" : [] } ],
+        "35732A" : [ "cam shaft assembly", "3", { "includedParts" : [], "collateralParts" : [ "55139", "550772" ] } ],
+        "35727"  : [ "AC power adapter", "custom", { "includedParts" : [], "collateralParts" : [] } ],
+        "35715A" : [ "valve (w/insert)", "3", { "includedParts" : [], "collateralParts" : [ "55139", "550772" ] } ],
+        "357092" : [ "keyhole", "custom", { "includedParts" : [], "collateralParts" : [] } ],
+        "357081" : [ "front case assembly", "1", { "includedParts" : [ "" ], "collateralParts" : [] } ],
+        "357041" : [ "motor sub-assembly", "3", { "includedParts" : [], "collateralParts" : [] } ],
+        "35704"  : [ "mechanism sub-assembly", "3", { "includedParts" : [], "collateralParts" : [] } ],
+        "35702"  : [ "rear case assembly", "custom", { "includedParts" : [], "collateralParts" : [] } ]
+    },
+    "processes" : {
+        "" : ""
+    },
+    "questions" : {
+        "exterior" : {
+            "Are there white/bright spots on the screen (view at shallow angles as well)" : "550743",
+            "Are there dark spots on the screen" : "550743",
+            "" : "",
+            "" : ""
+        },
+        "immediateInterior" : {
+            "" : "",
+            "" : "",
+            "" : ""
+        },
+        "mech" : {
+            "" : "",
+            "" : "",
+            "" : ""
+        },
+        "IO" : {
+            "" : "",
+            "" : "",
+            "" : ""
+        }
+    },
+    "opening" : "On {0}, Evaluation performed a visual inspection of SN {1} per ITP 35022-SVC rev. {2} and determined that the following parts require replacement."
 }
