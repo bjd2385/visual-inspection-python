@@ -11,7 +11,7 @@ from .exceptions import InvalidSerialNumberException, SerialNumberMismatchExcept
 from ..rev import REVISION_INF_01143_SVC, REVISION_ITP_35022_SVC
 
 from typing import Optional, Callable as Function, List
-from abc import ABCMeta, abstractmethod
+from abc import ABCMeta
 from enum import Enum
 from argparse import ArgumentParser
 from logging import Logger
@@ -31,7 +31,8 @@ def getINF01143_SVC_data(fname: str ='data/visual_inspection.json') -> str:
     decoder = json.JSONDecoder()
     decoded = decoder.decode(lines)
 
-    opening = lambda sn: decoded['opening'].format(
+    # update opening statement to a lambda function pending the device's SN.
+    decoded['opening'] = lambda sn: decoded['opening'].format(
         datetime.date.today().strftime('%B %d, %Y,'),
         sn,
         REVISION_ITP_35022_SVC
@@ -64,16 +65,73 @@ class InfusionDevice(metaclass=ABCMeta):
         Get proper SN input.
         """
         prompt = 'SN: '
+        inputSNs = []
 
-    @abstractmethod
-    def checkSN(self, SN: int) -> bool:
-        raise NotImplementedError()
+        def cmdloop(self, intro: Optional[str] =None) -> int:
+            """
+            Overridden cmd.Cmd `cmdloop` method. Most of this is the same, but I've
+            re-written the loop to halt and return the first serial number of
+            `self.inputSNs`.
+            """
+            self.preloop()
+            if self.use_rawinput and self.completekey:
+                try:
+                    import readline
+                    self.old_completer = readline.get_completer()
+                    readline.set_completer(self.complete)
+                    readline.parse_and_bind(self.completekey + ": complete")
+                except ImportError:
+                    pass
+            try:
+                if intro is not None:
+                    self.intro = intro
+                if self.intro:
+                    self.stdout.write(str(self.intro) + "\n")
+                while True:
+                    if self.cmdqueue:
+                        line = self.cmdqueue.pop(0)
+                    else:
+                        if self.use_rawinput:
+                            try:
+                                line = input(self.prompt)
+                            except EOFError:
+                                line = 'EOF'
+                        else:
+                            self.stdout.write(self.prompt)
+                            self.stdout.flush()
+                            line = self.stdin.readline()
+                            if not len(line):
+                                line = 'EOF'
+                            else:
+                                line = line.rstrip('\r\n')
+                    line = self.precmd(line)
+                self.postloop()
+                return self.inputSNs[0]
+            finally:
+                if self.use_rawinput and self.completekey:
+                    try:
+                        import readline
+                        readline.set_completer(self.old_completer)
+                    except ImportError:
+                        pass
+
 
     def getSN(self, conditions: List[Function[[int], bool]]) -> int:
         """
         Check each condition on an input device SN.
         """
-        
+        SN = self.SNInput().cmdloop(intro='Enter the device serial number')
+        return SN
+
+
+    @staticmethod
+    def trimParts():
+        """
+        Recursively update/trim required parts and processes based on included/collaterals.
+
+        To be called after every "yes" answer.
+        """
+
 
 
 class V6(InfusionDevice, cmd.Cmd):
@@ -81,11 +139,14 @@ class V6(InfusionDevice, cmd.Cmd):
     Represents a Spectrum V6 Infusion device.
     """
     def __init__(self, SN: Optional[int] =None) -> None:
+        super(V6, )
         self.version = Version.V6
         if SN:
             self.SerialNumber = SN
         else:
             self.SerialNumber = self.getSN([V6_SN_check])
+
+
 
 
 
