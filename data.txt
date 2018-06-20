@@ -1,0 +1,64 @@
+{
+    "parts" : {
+        "55391"  : { "keypad", "custom" }
+        "55139"  : { "bearings", "3" }
+        "550772" : { "gears", "3" }
+        "550743" : { "LCD display", "1" }
+        "50819"  : { "outer holders", "1" }
+        "50818"  : { "middle holders", "1" }
+        "50816"  : { "hooks", "1" }
+        "508151" : { "door plate", "1" }
+        "508132" : { "lower bearing mount", "3" }
+        "50812"  : { "link", "1" }
+        "50707"  : { "top latch pin", "1" }
+        "50702"  : { "pivot pin", "3" }
+        "50700"  : { "bottom latch pin", "1" }
+        "45719"  : { "valve (pressure plate)", "1" }
+        "45718"  : { "finger (pressure plate)", "1" }
+        "457143" : { "finger (molded)", "3" }
+        "45713"  : { "door cover", "custom" }
+        "457121" : { "tubing guide", "2" }
+        "45705"  : { "scanner bracket", "custom" }
+        "45704"  : { "sealing wall", "1" }
+        "41350A" : "UL (ETL) label",
+        "41085"  : "processor shielding",
+        "41084"  : "IO shielding",
+        "41041"  : "battery gasket",
+        "410152" : "tubing ID label",
+        "41010A" : "foam strip spacers",
+        "41007"  : "company ID label",
+        "41002A" : "display gasket",
+        "35753"  : "display backing",
+        "35745"  : "pump side adapter",
+        "35732A" : "cam shaft assembly",
+        "35727"  : "AC power adapter",
+        "35715A" : "valve (w/insert)",
+        "357092" : "keyhole",
+        "357081" : "front case assembly",
+        "357041" : "motor"
+        "" : ""
+    },
+    "inspection_questions" : {
+        "custom" : {
+            "Are there white/bright spots on the screen (view at shallow angles as well)" : "550743",
+            "Are there dark spots on the screen" : "550743",
+            "" : "",
+            "" : "",
+        }
+        "1" : {
+            "" : "",
+            "" : "",
+            "" : "",
+        }
+        "2" : {
+            "" : "",
+            "" : "",
+            "" : "",
+        }
+        "3" : {
+            "" : "",
+            "" : "",
+            "" : "",
+        }
+    }
+}
