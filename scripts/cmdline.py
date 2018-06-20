@@ -15,13 +15,15 @@ from abc import ABCMeta
 from enum import Enum
 from argparse import ArgumentParser
 from logging import Logger
+from tkinter import Tk
 
 import cmd
 import json
 import datetime
+import traceback
 
 
-def getINF01143_SVC_data(fname: str ='data/visual_inspection.json') -> str:
+def get_data(fname: str ='data/visual_inspection.json') -> str:
     """
     Parse JSON data about parts and processes on the INF 01143-SVC and INF 01143-CFG2-SVC.
     """
@@ -31,14 +33,33 @@ def getINF01143_SVC_data(fname: str ='data/visual_inspection.json') -> str:
     decoder = json.JSONDecoder()
     decoded = decoder.decode(lines)
 
-    # update opening statement to a lambda function pending the device's SN.
-    decoded['opening'] = lambda sn: decoded['opening'].format(
-        datetime.date.today().strftime(r'%B %d, %Y,'),
-        sn,
-        REVISION_ITP_35022_SVC
-    )
+    # update statements to a lambda function pending the device's SN.
+    for key in ('opening', 'default'):
+        decoded[key] = lambda sn: decoded[key].format(
+            datetime.date.today().strftime(r'%B %d, %Y,'),
+            sn,
+            REVISION_ITP_35022_SVC
+        )
 
     return decoded
+
+
+class Clipboard:
+    """
+    Context manager to provide a basic interface to tkinter's clipboard
+    functionality.
+    """
+    def __enter__(self) -> 'Clipboard':
+        self._instance = Tk()
+        self._instance.withdraw()
+        self._instance.clipboard_clear()
+        return self
+    def copy(self, msg: str ='') -> None:
+        self._instance.clipboard_append(msg)
+        self._instance.update()
+    def __exit__(self, exception_type: type, exception_value: Exception,
+                 traceback: traceback) -> None:
+        self._instance.destroy()
 
 
 class Version(Enum):
@@ -128,16 +149,20 @@ class InfusionDevice(metaclass=ABCMeta):
         Check each condition on an input device SN.
         """
         while True:
-            SN = self.SNInput().cmdloop(intro='Enter the device serial number')
+            instance = self.SNInput()
+            instance.cmdloop(intro='Enter the device serial number')
             if all(condition(SN) for condition in conditions):
                 break
+            else:
+                instance.
         return SN
 
 
     @staticmethod
     def trimParts():
         """
-        Recursively update/trim required parts and processes based on included/collaterals.
+        Recursively update/trim required parts and processes based on
+        included/collaterals.
 
         To be called after every "yes" answer.
         """

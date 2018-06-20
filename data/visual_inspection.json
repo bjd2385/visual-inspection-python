@@ -41,15 +41,15 @@
         "357081" : [ "front case assembly", "1", { "includedParts" : [ "55391", "41002A" ], "collateralParts" : [ "410152", "" ], "includedProcesses" : [] } ],
         "357041" : [ "motor sub-assembly", "3", { "includedParts" : [ "90062" ], "collateralParts" : [ "55139", "550772" ], "includedProcesses" : [] } ],
         "35704"  : [ "mechanism sub-assembly", "3", { "includedParts" : [ "35711", "508151", "50816", "550772", "55139", "357041" ], "collateralParts" : [], "includedProcesses" : [] } ],
-        "35702"  : [ "rear case assembly", "custom", { "includedParts" : [ "41007", "" ], "collateralParts" : [ "41350A" ], "includedProcesses" : [] } ]
+        "35701"  : [ "rear case assembly", "custom", { "includedParts" : [ "41007", "" ], "collateralParts" : [ "41350A" ], "includedProcesses" : [] } ]
     },
     "processes" : {
         "" : ""
     },
     "questions" : {
         "exterior" : {
-            "Are there white/bright spots on the screen (view at shallow angles as well)" : [ "550743" ],
-            "Are there dark spots on the screen" : [ "550743" ],
+            "Are there white/bright spots on the screen (view at shallow angles as well)" : { "parts" : [ "550743" ], "processes" : [] },
+            "Are there dark spots on the screen" : { "parts" : [ "550743" ], "proc" : [] },
             "" : "",
             "" : ""
         },
