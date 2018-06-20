@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 The valid serial number ranges of Baxter's products.
 """

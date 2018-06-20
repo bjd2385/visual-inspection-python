@@ -1,9 +1,8 @@
-#! /usr/bin/env python3.6
 # -*- coding: utf-8 -*-
 
 """
 Walk an Evaluation Technician through a visual inspection of a Spectrum V6, V8, or V9
-infusion device.
+infusion device using INF 01143-SVC rev. {0} and ITP 35022-SVC rev. {1}.
 """
 
 from .serial_numbers import V6_SN_check, V8_SN_check, V9_SN_check, global_constraint
@@ -25,7 +24,7 @@ import traceback
 
 def get_data(fname: str ='data/visual_inspection.json') -> str:
     """
-    Parse JSON data about parts and processes on the INF 01143-SVC and INF 01143-CFG2-SVC.
+    Parse JSON data about parts and processes on the INF 01143-*SVC.
     """
     with open(fname, 'r') as data:
         lines = data.read()
@@ -47,16 +46,21 @@ def get_data(fname: str ='data/visual_inspection.json') -> str:
 class Clipboard:
     """
     Context manager to provide a basic interface to tkinter's clipboard
-    functionality.
+    functionality. (This class provides the program the ability to immediately copy
+    results of the inspection to the clipboard, so an evaluator can paste it
+    into their EN Device Evaluation Assessment.
     """
+
     def __enter__(self) -> 'Clipboard':
         self._instance = Tk()
         self._instance.withdraw()
         self._instance.clipboard_clear()
         return self
+
     def copy(self, msg: str ='') -> None:
         self._instance.clipboard_append(msg)
         self._instance.update()
+
     def __exit__(self, exception_type: type, exception_value: Exception,
                  traceback: traceback) -> None:
         self._instance.destroy()
@@ -150,7 +154,7 @@ class InfusionDevice(metaclass=ABCMeta):
         """
         while True:
             instance = self.SNInput()
-            instance.cmdloop(intro='Enter the device serial number')
+            SN = instance.cmdloop(intro='Enter the device serial number')
             if all(condition(SN) for condition in conditions):
                 break
             else:
@@ -259,7 +263,9 @@ class Visual(cmd.Cmd):
 
 
 def main() -> None:
-    parser = ArgumentParser(description=__doc__)
+    parser = ArgumentParser(
+        description=__doc__.format(REVISION_INF_01143_SVC, REVISION_ITP_35022_SVC)
+    )
 
     parser.add_argument('-d', '--debug', action='store_true', default=True,
         help='Log output'
