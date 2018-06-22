@@ -57,6 +57,8 @@ class GraphNode(Iterator):
     """
     collaterals: Tuple['GraphNode'] = ()
     inclParts: Tuple['GraphNode'] = ()
+
+    # because nodes are based on PNs, processes are collateral information
     inclProcs: Tuple[str] = ()
 
     def __init__(self, partN: str) -> None:
