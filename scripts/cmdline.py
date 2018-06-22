@@ -8,6 +8,7 @@ infusion device using INF 01143-SVC rev. {0} and ITP 35022-SVC rev. {1}.
 from .serial_numbers import V6_SN_check, V8_SN_check, V9_SN_check, global_constraint
 from .exceptions import InvalidSerialNumberException, SerialNumberMismatchException
 from ..rev import REVISION_INF_01143_SVC, REVISION_ITP_35022_SVC
+from .tree import PartsTree
 
 from typing import Optional, Callable as Function, List
 from abc import ABCMeta
@@ -160,17 +161,6 @@ class InfusionDevice(metaclass=ABCMeta):
             else:
                 instance.
         return SN
-
-
-    @staticmethod
-    def trimParts():
-        """
-        Recursively update/trim required parts and processes based on
-        included/collaterals.
-
-        To be called after every "yes" answer.
-        """
-
 
 
 class V6(InfusionDevice, cmd.Cmd):

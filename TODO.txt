@@ -7,3 +7,7 @@ TODO:
              quite simply, continue where they left off.
     4) Compile the module to a Windows executable with PyInstaller.
     5) Refine SN ranges.
+    6) Add the ability during the visual inspection to add parts by part number at any point (which could, in practice, make answering any questions unnecessary)
+    7) Add a command to stop the visual inspection at certain points (might be a good idea to prompt the evaluator and tell them this is a possibility)
+        7.1) Isn't it possible to just make each section a stopping point past "immediateInterior" ?
+    8)
