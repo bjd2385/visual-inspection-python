@@ -8,9 +8,9 @@ infusion device using INF 01143-SVC rev. {0} and ITP 35022-SVC rev. {1}.
 from .serial_numbers import V6_SN_check, V8_SN_check, V9_SN_check, global_constraint
 from .exceptions import InvalidSerialNumberException, SerialNumberMismatchException
 from ..rev import REVISION_INF_01143_SVC, REVISION_ITP_35022_SVC
-from .tree import PartsTree
+from .tree import PartsGraph
 
-from typing import Optional, Callable as Function, List
+from typing import Optional, Callable as Function, List, Dict
 from abc import ABCMeta
 from enum import Enum
 from argparse import ArgumentParser
@@ -21,27 +21,6 @@ import cmd
 import json
 import datetime
 import traceback
-
-
-def get_data(fname: str ='data/visual_inspection.json') -> str:
-    """
-    Parse JSON data about parts and processes on the INF 01143-*SVC.
-    """
-    with open(fname, 'r') as data:
-        lines = data.read()
-
-    decoder = json.JSONDecoder()
-    decoded = decoder.decode(lines)
-
-    # update statements to a lambda function pending the device's SN.
-    for key in ('opening', 'default'):
-        decoded[key] = lambda sn: decoded[key].format(
-            datetime.date.today().strftime(r'%B %d, %Y,'),
-            sn,
-            REVISION_ITP_35022_SVC
-        )
-
-    return decoded
 
 
 class Clipboard:
