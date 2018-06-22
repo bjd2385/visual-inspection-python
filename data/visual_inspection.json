@@ -3,6 +3,7 @@
         "95515"  : [ "M3 spring", "1", { "includedParts" : [], "collateralParts" : [ "95514" ], "includedProcesses" : [] } ],
         "95514"  : [ "M2 spring", "1", { "includedParts" : [], "collateralParts" : [ "95515" ], "includedProcesses" : [] } ],
         "95215"  : [ "motor mount screws (nylon)", "3", { "includedParts" : [], "collateralParts" : [ "550772", "55139" ], "includedProcesses" : [ "link adjustment" ] } ],
+        "95215"  : [ "motor mount screws (nylon)", "3", { "includedParts" : [], "collateralParts" : [ "550772", "55139" ], "includedProcesses" : [ "link adjustment" ] } ],
         "95214"  : [ "scanner bracket screws (nylon)", "custom", { "includedParts" : [], "collateralParts" : [], "includedProcesses" : [] } ],
         "90062"  : [ "motor teflon tape", "3", { "includedParts" : [], "collateralParts" : [ "550772", "55139" ], "includedProcesses" : [ "link adjustment" ] } ],
         "600871" : [ "processor PCBA", "", { "includedParts" : [], "collateralParts" : [ "41085" ], "includedProcesses" : [ "processor board install only" ] } ],
@@ -36,7 +37,7 @@
         "41385"  : [ "UL (ETL) label", "custom", { "includedParts" : [ "41009", "41338", "41340", "41351", "41350A" ], "collateralParts" : [], "includedProcesses" : [] } ],
         "41346"  : [ "serial label", "custom", { "includedParts" : [], "collateralParts" : [], "includedProcesses" : [ "serial number labeling" ] } ],
         "41085"  : [ "processor shielding", "custom", { "includedParts" : [], "collateralParts" : [], "includedProcesses" : [] } ],
-        "41084"  : [ "IO shielding", "custom", { "includedParts" : [], "collateralParts" : [], "includedProcesses" : [] } ],
+        "41084"  : [ "IO shielding", "custom", { "includedParts" : [], "collateralParts" : [], "includedProcesses" : [ "processor board install only" ] } ],
         "41041"  : [ "battery gasket", "custom", { "includedParts" : [], "collateralParts" : [], "includedProcesses" : [] } ],
         "410152" : [ "tubing ID label", "custom", { "includedParts" : [], "collateralParts" : [], "includedProcesses" : [] } ],
         "41010A" : [ "foam strip spacers", "1", { "includedParts" : [], "collateralParts" : [], "includedProcesses" : [] } ],
@@ -49,6 +50,7 @@
         "35732A" : [ "cam shaft assembly", "3", { "includedParts" : [], "collateralParts" : [ "55139", "550772" ], "includedProcesses" : [ "link adjustment" ] } ],
         "35727"  : [ "AC power adapter", "custom", { "includedParts" : [], "collateralParts" : [], "includedProcesses" : [] } ],
         "35715A" : [ "valve (w/insert)", "3", { "includedParts" : [], "collateralParts" : [ "55139", "550772" ], "includedProcesses" : [ "link adjustment" ] } ],
+        "35711"  : [ "ultrasonic sensor", "2", { "includedParts" : [], "collateralParts" : [], "includedProcesses" : [ "CTP 35711-001-SVC", "CTP 35711-002-SVC", "mech. & IO installation" ] } ],
         "357092" : [ "keyhole", "custom", { "includedParts" : [], "collateralParts" : [], "includedProcesses" : [] } ],
         "357081" : [ "front case assembly", "1", { "includedParts" : [ "55391", "41002A" ], "collateralParts" : [ "410152", "" ], "includedProcesses" : [] } ],
         "357042" : [ "upper auxiliary", "1", { "includedParts" : [], "collateralParts" : [], "includedProcesses" : [ "link adjustment" ] } ],
@@ -65,7 +67,7 @@
         "CTP 35711-002-SVC" : [],
         "CTP 35147-001-SVC" : [],
         "CTP 35147-002-SVC" : [],
-        "link adjustment" : [ "processor board install only" ],
+        "link adjustment" : [ "mech. & IO installation" ],
         "smartscope" : [ "link adjustment" ],
         "processor board install only" : [],
         "mech. & IO installation" : [ "processor board install only" ]
@@ -109,7 +111,7 @@
             "Do all 4 pressure plates move freely" : { "parts" : [ "95514", "95515" ], "processes" : [] },
             "Is the upstream pusher installed securely" : { "parts" : [], "processes" : [ "CTP 35711-001-SVC" ] },
             "Is the downstream pusher installed securely" : { "parts" : [], "processes" : [ "CTP 35147-002-SVC" ] },
-            "Does the door cover have ribs on the interior, hinge side" : { "parts" : [ "45713" ], "" : [] },
+            "Does the door cover have ribs on the interior, hinge side" : { "parts" : [ "45713" ], "processes" : [] },
             "Are the hooks straight/not bent" : { "parts" : [ "50816" ], "processes" : [] }
         },
         "immediateInterior" : {
