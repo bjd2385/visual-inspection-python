@@ -1,5 +1,5 @@
 {
-    "V6parts" : {
+    "V6Parts" : {
         "95515"  : [ "M3 spring", "1", { "includedParts" : [], "collateralParts" : [ "95514" ], "includedProcesses" : [ "pressure plate travel adjustment / verification" ] } ],
         "95514"  : [ "M2 spring", "1", { "includedParts" : [], "collateralParts" : [ "95515" ], "includedProcesses" : [ "pressure plate travel adjustment / verification" ] } ],
         "95215"  : [ "motor mount screws (nylon)", "3", { "includedParts" : [], "collateralParts" : [ "550772", "55139" ], "includedProcesses" : [ "link adjustment" ] } ],
@@ -109,7 +109,7 @@
             "Is there glue on the downstream sensor's head" : { "parts" : [ "35147" ], "processes" : [] },
             "Are there any customer-facing cracks in the keyhole assembly" : { "parts" : [ "357092" ], "processes" : [] },
             "Is the keyhole cup soiled" : { "parts" : [ "357092" ], "processes" : [] },
-            "Is the edge of the door cover free of cracks" : { "parts" : [ "45713" ], "" : [] },
+            "Is the edge of the door cover free of cracks" : { "parts" : [ "45713" ], "processes" : [] },
             "Are all 16 pressure plate holder screws present and installed securely" : { "parts" : [ "95514", "95515" ], "processes" : [] },
             "Do all 4 pressure plates move freely" : { "parts" : [ "95514", "95515" ], "processes" : [] },
             "Is the upstream pusher installed securely" : { "parts" : [], "processes" : [ "CTP 35711-001-SVC" ] },
@@ -154,7 +154,7 @@
             "Does the IO board have silver test points (TPx)" : { "parts" : [ "60091" ], "processes" : [] },
             "Are there any signs of water marks or corrosion on the IO board" : { "parts" : [ "60091" ], "processes" : [] },
             "Are there any tears in the sealing wall" : { "parts" : [], "processes" : [] },
-            "Is the LCD display free of residue/corrosion" : { "parts" : [ "550742" ], "processes" : [] },
+            "Is the LCD display free of residue/corrosion" : { "parts" : [ "550743" ], "processes" : [] },
             "Are there any damaged components on the IO board (e.g., C27, Q20)" : { "parts" : [ "60091" ], "processes" : [] }
         }
     },

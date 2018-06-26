@@ -4,9 +4,9 @@
 Parts data graph.
 """
 
-from ..rev import REVISION_INF_01143_SVC, REVISION_ITP_35022_SVC
+from rev import REVISION_INF_01143_SVC, REVISION_ITP_35022_SVC
 
-from typing import Dict, List, Callable as Function, Tuple, Optional
+from typing import Dict, List, Callable as Function, Tuple, Optional, Union
 from collections.abc import Iterator
 from itertools import zip_longest
 
@@ -16,20 +16,13 @@ import traceback
 
 
 # High leve view of the structure of each parts list
-Structure = Dict[
-    str,
-    List[str,
-         str,
-         Dict[str, List[str]],
-         Dict[str, List[str]],
-         Dict[str, List[str]]
-    ]
-]
+Structure = Dict[str, List[Union[str, str, Dict[str, List[str]], Dict[str, List[str]]]]]
 
+# Structure of questions in JSON file
 Questions = Dict[str, Dict[str, Dict[str, List[str]]]]
 
 
-def get_data(fname: str ='data/visual_inspection.json') -> Dict[Structure, ...]:
+def get_data(fname: str ='data/visual_inspection.json') -> Dict:
     """
     Parse JSON data about parts and processes on the INF 01143-*SVC.
     """
