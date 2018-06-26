@@ -25,7 +25,7 @@
         "45718"  : [ "finger (pressure plate)", "1", { "includedParts" : [], "collateralParts" : [ "95514", "95515" ], "includedProcesses" : [] } ],
         "457143" : [ "finger (molded)", "3", { "includedParts" : [], "collateralParts" : [ "55139", "550772" ], "includedProcesses" : [ "link adjustment" ] } ],
         "45713"  : [ "door cover", "custom", { "includedParts" : [], "collateralParts" : [], "includedProcesses" : [] } ],
-        "457121" : [ "tubing guide", "2", { "includedParts" : [], "collateralParts" : [], "includedProcesses" : [ "link adjustment" ] } ],
+        "457121" : [ "tubing guide", "2", { "includedParts" : [], "collateralParts" : [], "includedProcesses" : [ "force sensor installation" ] } ],
         "45705"  : [ "scanner bracket", "custom", { "includedParts" : [], "collateralParts" : [ "41002" ], "includedProcesses" : [] } ],
         "45704"  : [ "sealing wall", "1", { "includedParts" : [], "collateralParts" : [], "includedProcesses" : [] } ],
         "41350A" : [ "UL (ETL) label", "custom", { "includedParts" : [ "41009", "41338", "41340", "41351", "41385" ], "collateralParts" : [], "includedProcesses" : [] } ],
@@ -43,7 +43,7 @@
         "41007"  : [ "company ID label", "custom", { "includedParts" : [], "collateralParts" : [], "includedProcesses" : [] } ],
         "41004"  : [ "power and bolus label", "", { "includedParts" : [], "collateralParts" : [], "includedProcesses" : [] } ],
         "41002A" : [ "display gasket", "1", { "includedParts" : [], "collateralParts" : [], "includedProcesses" : [ "mech. & IO installation" ] } ],
-        "41002"  : [ "O-ring", "custom", { "includedParts" : [], "collateralParts" : [], "includedProcesses" : [] } ],
+        "41002"  : [ "O-ring", "custom", { "includedParts" : [], "collateralParts" : [ "457281" ], "includedProcesses" : [] } ],
         "35753"  : [ "display backing", "1", { "includedParts" : [ "41010A" ], "collateralParts" : [], "includedProcesses" : [] } ],
         "35745"  : [ "pump side adapter", "custom", { "includedParts" : [], "collateralParts" : [], "includedProcesses" : [] } ],
         "35732A" : [ "cam shaft assembly", "3", { "includedParts" : [], "collateralParts" : [ "55139", "550772" ], "includedProcesses" : [ "link adjustment", "pressure plate travel adjustment / verification" ] } ],
@@ -56,7 +56,7 @@
         "357041" : [ "motor sub-assembly", "3", { "includedParts" : [ "90062" ], "collateralParts" : [ "55139", "550772" ], "includedProcesses" : [ "link adjustment", "pressure plate travel adjustment / verification" ] } ],
         "35704"  : [ "mechanism sub-assembly", "3", { "includedParts" : [ "35711", "508151", "50816", "550772", "55139", "357041" ], "collateralParts" : [], "includedProcesses" : [ "link adjustment", "pressure plate travel adjustment / verification" ] } ],
         "35701"  : [ "rear case assembly", "custom", { "includedParts" : [ "41007", "41041", "35745", "45705", "41004", "41009", "41338", "41340", "41351", "41385", "41350A", "457281" ], "collateralParts" : [ "41350A" ], "includedProcesses" : [] } ],
-        "35148"  : [ "lower auxiliary", "1", { "includedParts" : [], "collateralParts" : [], "includedProcesses" : [] } ],
+        "35148"  : [ "lower auxiliary", "1", { "includedParts" : [], "collateralParts" : [], "includedProcesses" : [ "mech. & IO installation" ] } ],
         "35147"  : [ "force sensor", "2", { "includedParts" : [], "collateralParts" : [], "includedProcesses" : [ "force sensor installation" ] } ]
     },
     "processes" : {
