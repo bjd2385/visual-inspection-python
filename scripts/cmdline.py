@@ -163,6 +163,8 @@ class V8(InfusionDevice, cmd.Cmd):
     Represents a Spectrum V8 Infusion device.
     """
     def __init__(self, SN: Optional[int] =None) -> None:
+        cmd.Cmd.__init__(self, )
+
         self.version = Version.V8
         if SN:
             self.SerialNumber = SN

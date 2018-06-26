@@ -15,8 +15,7 @@ import datetime
 import traceback
 
 
-# High leve view of the structure that `PartsTree` uses to reason about trim and
-# collaterals
+# High leve view of the structure of each parts list
 Structure = Dict[
     str,
     List[str,
@@ -26,6 +25,8 @@ Structure = Dict[
          Dict[str, List[str]]
     ]
 ]
+
+Questions = Dict[str, Dict[str, Dict[str, List[str]]]]
 
 
 def get_data(fname: str ='data/visual_inspection.json') -> Dict[Structure, ...]:
@@ -51,9 +52,10 @@ def get_data(fname: str ='data/visual_inspection.json') -> Dict[Structure, ...]:
 
 class GraphNode(Iterator):
     """
-    Maintain part information and connections/relations to other parts. Also an
-    iterable, so both recursion and iteration can be used for complete traversal
-    of the parts graph.
+    Maintain part information and connections/relations to other parts.
+
+    Each node is also iterable, so you can iterate over the collateral and included
+    parts, as well as the included processes, all at the same time.
     """
     collaterals: Tuple['GraphNode'] = ()
     inclParts: Tuple['GraphNode'] = ()
@@ -120,4 +122,7 @@ class PartsGraph:
     """
     Maintain a parts tree.
     """
-    def __init__(self, ):
+    def __init__(self, parts: Structure, processes: Dict[str, List[str]]) -> None:
+        self.parts = parts
+        self.processes = processes
+
