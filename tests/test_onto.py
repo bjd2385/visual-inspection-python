@@ -5,7 +5,7 @@ Test whether the visual inspection questions form an onto-mapping with the parts
 list, i.e. Questions : PartsList -> PartsList is an onto mapping.
 """
 
-from scripts.tree import get_data, Structure, Questions
+from scripts.tree import get_data
 from warnings import warn
 
 import unittest
@@ -29,7 +29,7 @@ class TestOnto(unittest.TestCase):
         self.parts = self.data['V6Parts']
         self.part_numbers_set = set(self.parts.keys())
         self.questions = self.data['questions']
-        self.processes = set(self.data['processes'])
+        self.processes = self.data['processes']
 
         self.len_parts = len(self.parts)
         self.len_processes = len(self.processes)
@@ -55,21 +55,33 @@ class TestOnto(unittest.TestCase):
             self._parts_mapped_to |= collateralParts
 
         warn(f'These parts aren\'t in the image: '
-             f'{self.part_numbers_set - self._parts_mapped_to}')
+             f'{self.part_numbers_set - self._parts_mapped_to}', RuntimeWarning)
 
         self.assertEqual(self.len_parts, len(self._parts_mapped_to),
             msg='Questions must cover every part in the provided parts list')
 
-    @unittest.skip
     def test_onto_processes(self) -> None:
         """
-        Ensure the processes are mapped onto (less important).
+        Ensure the processes are mapped onto.
         """
         # Get the set of processes mapped to
         for level in self.questions.values():
             for question in level.values():
                 self._processes_mapped_to |= set(question['processes'])
         self._processes_mapped_to.discard('')
+
+        for _ in range(self.len_parts):
+            processes = set()
+            for part in self._parts_mapped_to:
+                # Add each parts' process
+                processes |= set(self.parts[part][2]['includedProcesses'])
+
+            self._processes_mapped_to |= processes
+
+        # Now add each processes' included process(es)
+        for process in self._processes_mapped_to:
+            for includedProcess in self.processes[process].values():
+                self._processes_mapped_to |= includedProcess
 
         warn(f'These processes are not utilized: '
              f'{self.processes - self._processes_mapped_to}')

@@ -88,7 +88,9 @@
             "Are there any signs of cracks in the rear case assembly" : { "parts" : [ "35701" ], "processes" : [] },
             "Are there severe customer-facing case dents or scuffs on the exterior of the rear case assembly" : { "parts" : [ "35701" ], "processes" : [] },
             "Is the power bolus loose" : { "parts" : [], "processes" : [] },
-            "Are all 6 pins present and not bent or depressed lower than the others" : { "parts" : [], "processes" : [] },
+            "Are all 6 pins present and not bent or depressed lower than the others" : { "parts" : [ "35701" ], "processes" : [] },
+            "Is the battery gasket completely present" : { "parts" : [ "41041" ], "processes" : [] },
+            "Are there any depressed battery contact pins" : { "parts" : [ "35701" ], "processes" : [] },
             "Are there severe customer-facing case dents or scuffs on the exterior of the front case assembly" : { "parts" : [ "357081" ], "processes" : [] },
             "Is the O-ring seated properly in the scanner bracket" : { "parts" : [], "processes" : [] },
             "Is the battery gasket present (ensure pieces are not missing)" : { "parts" : [], "processes" : [] },
@@ -141,7 +143,8 @@
             "Are there any signs of fluid intrusion or corrosion on the processor board" : { "parts" : [ "600871" ], "processes" : [] },
             "If the IO board's revision is later than J (i.e. K and later), does the processor board have shielding" : { "parts" : [ "41085" ], "processes" : [] },
             "Is there any sign of missing components on the processor board (e.g., the FB2 element)" : { "parts" : [ "600871" ], "processes" : [] },
-            "Is there grease present on all 4 cam lobes" : { "parts" : [ "35732A", "457143", "35715A" ], "processes" : [] }
+            "Is there grease present on all 4 cam lobes" : { "parts" : [ "35732A", "457143", "35715A" ], "processes" : [] },
+            "Are there any holes in the motor's teflon tape" : { "parts" : [ "90062" ], "processes" : [] }
         },
         "processorRemoval" : {
             "Is the processor board removed from the front case assembly" : { "parts" : [], "processes" : [ "processor board install only" ] }

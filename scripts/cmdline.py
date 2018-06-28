@@ -21,6 +21,7 @@ import cmd
 import json
 import datetime
 import traceback
+import base64   # Encode logs so that they are not as easy to modify by end users
 
 
 class Clipboard:
