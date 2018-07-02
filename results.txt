@@ -1,0 +1,23 @@
+/home/brandon/projects/visual-inspection-python/tests/test_onto.py:58: RuntimeWarning: These parts aren't in the image: {'45705', '35753', '41346', '41009', '50818', '50812', '95516', '357042', '41351', '41338', '85244', '35148', '35727', '41007', '45718', '508151', '95214', '50702', '50707', '508132', '50700', '45704', '357041', '45719', '41002A', '41385', '50819', '41340'}
+  f'{self.part_numbers_set - self._parts_mapped_to}', RuntimeWarning)
+FE
+======================================================================
+ERROR: test_onto_processes (tests.test_onto.TestOnto)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/brandon/projects/visual-inspection-python/tests/test_onto.py", line 83, in test_onto_processes
+    for includedProcess in self.processes[process].values():
+AttributeError: 'list' object has no attribute 'values'
+
+======================================================================
+FAIL: test_onto_parts (tests.test_onto.TestOnto)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/brandon/projects/visual-inspection-python/tests/test_onto.py", line 61, in test_onto_parts
+    msg='Questions must cover every part in the provided parts list')
+AssertionError: 60 != 32 : Questions must cover every part in the provided parts list
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.002s
+
+FAILED (failures=1, errors=1)
