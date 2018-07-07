@@ -47,9 +47,9 @@ def get_data(fname: str ='data/visual_inspection.json') -> Dict:
     return decoded
 
 
-class ProcessNode(Iterator):
+class CompileParts:
     """
-    Maintain process information and connections/relations to other processes.
+    Functions for keeping track of processes and parts.
     """
 
 

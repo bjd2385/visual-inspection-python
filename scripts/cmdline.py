@@ -21,30 +21,7 @@ import cmd
 import json
 import datetime
 import traceback
-import base64   # Encode logs so that they are not as easy to modify by end users
-
-
-class Clipboard:
-    """
-    Context manager to provide a basic interface to tkinter's clipboard
-    functionality. (This class provides the program the ability to immediately copy
-    results of the inspection to the clipboard, so an evaluator can paste it
-    into their EN Device Evaluation Assessment.
-    """
-
-    def __enter__(self) -> 'Clipboard':
-        self._instance = Tk()
-        self._instance.withdraw()
-        self._instance.clipboard_clear()
-        return self
-
-    def copy(self, msg: str ='') -> None:
-        self._instance.clipboard_append(msg)
-        self._instance.update()
-
-    def __exit__(self, exception_type: type, exception_value: Exception,
-                 traceback: traceback) -> None:
-        self._instance.destroy()
+import base64   # Encode logs so they are not as easy to modify by end users
 
 
 class Version(Enum):
@@ -59,88 +36,123 @@ class Category(Enum):
     RENTAL = 3
 
 
-class InfusionDevice(metaclass=ABCMeta):
+class Clipboard:
     """
-    Base class for Baxter's Spectrum infusion devices.
+    Context manager to provide a basic interface to tkinter's clipboard
+    functionality. (This class provides the program the ability to immediately copy
+    results of the inspection to the clipboard, so an evaluator can paste it
+    into their EN Device Evaluation Assessment.
     """
-    SerialNumber: Optional[int] = None
-    DeviceType: Optional[Category] = None
 
-    class SNInput(cmd.Cmd):
+    def __init__(self, msg: Optional[str] =None) -> None:
+        self.msg = msg
+
+    def __enter__(self) -> 'Clipboard':
+        self._instance = Tk()
+        self._instance.withdraw()
+        self._instance.clipboard_clear()
+        return self
+
+    def copy(self, msg: Optional[str] =None) -> None:
+        if not msg:
+            msg = self.msg
+        self._instance.clipboard_append(msg)
+        self._instance.update()
+
+    def __exit__(self, exception_type: type, exception_value: Exception,
+                 traceback: traceback) -> None:
+        self._instance.destroy()
+
+
+class SNInput(cmd.Cmd):
+    """
+    Get proper SN input by extending the capabilities of the cmd.Cmd class.
+    """
+    prompt = 'SN: '
+    inputSNs = []
+
+    def emptyline(self) -> None:
         """
-        Get proper SN input.
+        Override default, i.e. re-running the last command.
+
+        Do nothing.
         """
-        prompt = 'SN: '
-        inputSNs = []
 
-        def emptyline(self) -> None:
-            """
-            Override default, i.e. re-running the last command.
-
-            Do nothing.
-            """
-
-        def cmdloop(self, intro: Optional[str] =None) -> int:
-            """
-            Overridden cmd.Cmd `cmdloop` method. Most of this is the same, but I've
-            re-written the loop to halt and return the first serial number of
-            `self.inputSNs`.
-            """
-            self.preloop()
+    def cmdloop(self, intro: Optional[str] =None) -> int:
+        """
+        Overridden cmd.Cmd `cmdloop` method. Most of this is the same, but
+        I've re-written the loop to halt and return the first serial 
+        number of `self.inputSNs`.
+        """
+        self.preloop()
+        if self.use_rawinput and self.completekey:
+            try:
+                import readline
+                self.old_completer = readline.get_completer()
+                readline.set_completer(self.complete)
+                readline.parse_and_bind(self.completekey + ": complete")
+            except ImportError:
+                pass
+        try:
+            if intro is not None:
+                self.intro = intro
+            if self.intro:
+                self.stdout.write(str(self.intro) + "\n")
+            while True:
+                if self.cmdqueue:
+                    line = self.cmdqueue.pop(0)
+                else:
+                    if self.use_rawinput:
+                        try:
+                            line = input(self.prompt)
+                        except EOFError:
+                            line = 'EOF'
+                    else:
+                        self.stdout.write(self.prompt)
+                        self.stdout.flush()
+                        line = self.stdin.readline()
+                        if not len(line):
+                            line = 'EOF'
+                        else:
+                            line = line.rstrip('\r\n')
+                line = self.precmd(line)
+                self.postloop()
+            return self.inputSNs[0]
+        finally:
             if self.use_rawinput and self.completekey:
                 try:
                     import readline
-                    self.old_completer = readline.get_completer()
-                    readline.set_completer(self.complete)
-                    readline.parse_and_bind(self.completekey + ": complete")
+                    readline.set_completer(self.old_completer)
                 except ImportError:
                     pass
-            try:
-                if intro is not None:
-                    self.intro = intro
-                if self.intro:
-                    self.stdout.write(str(self.intro) + "\n")
-                while True:
-                    if self.cmdqueue:
-                        line = self.cmdqueue.pop(0)
-                    else:
-                        if self.use_rawinput:
-                            try:
-                                line = input(self.prompt)
-                            except EOFError:
-                                line = 'EOF'
-                        else:
-                            self.stdout.write(self.prompt)
-                            self.stdout.flush()
-                            line = self.stdin.readline()
-                            if not len(line):
-                                line = 'EOF'
-                            else:
-                                line = line.rstrip('\r\n')
-                    line = self.precmd(line)
-                    self.postloop()
-                return self.inputSNs[0]
-            finally:
-                if self.use_rawinput and self.completekey:
-                    try:
-                        import readline
-                        readline.set_completer(self.old_completer)
-                    except ImportError:
-                        pass
 
+    def __enter__(self) -> 'SNInput':
+        return self
+
+    def __exit__(self, exception_type: type, 
+                 exception_value: Exception, traceback: traceback) -> None:
+        pass
+
+
+class InfusionDevice(metaclass=ABCMeta):
+    """
+    Base class for visual inspection of Baxter's Spectrum infusion devices.
+    """
+    SerialNumber: Optional[int] = None
+    DeviceType: Optional[Category] = None
 
     def getSN(self, conditions: List[Function[[int], bool]]) -> int:
         """
         Check each condition on an input device SN.
         """
         while True:
-            instance = self.SNInput()
-            SN = instance.cmdloop(intro='Enter the device serial number')
-            if all(condition(SN) for condition in conditions):
-                break
-            else:
-                instance.
+            with SNInput().cmdloop(intro='Enter device serial number') as SN:
+                if all(condition(SN) for condition in conditions):
+                    break
         return SN
+
+    def startQuestions(self) -> None:
+        pass
 
 
 class V6(InfusionDevice, cmd.Cmd):
@@ -148,7 +160,7 @@ class V6(InfusionDevice, cmd.Cmd):
     Represents a Spectrum V6 Infusion device.
     """
     def __init__(self, SN: Optional[int] =None) -> None:
-        super(V6, )
+        
         self.version = Version.V6
         if SN:
             self.SerialNumber = SN
@@ -192,12 +204,11 @@ class Visual(cmd.Cmd):
         self.do_help(line)
 
     def exit(self, line: str) -> None:
+        """ Exit the loop """ 
         raise EOFError
 
-    def help_exit(self) -> None:
-
-
     def quit(self, line: str) -> None:
+        """ Exit the loop """
         raise EOFError
 
     def do_V6(self, line: str) -> None:
