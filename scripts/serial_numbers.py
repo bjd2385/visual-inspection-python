@@ -4,6 +4,8 @@
 The valid serial number ranges of Baxter's products.
 """
 
+SN_REDUNDANCY = 2   # Number of times to prompt for SN throughout program
+
 # TODO: Refine these ranges
 
 V6_SNs = ((460000, 470000), (720000, 1125000))
